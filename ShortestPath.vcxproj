@@ -73,8 +73,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)output</OutDir>
     <IntDir>$(SolutionDir)intermediates</IntDir>
-    <IncludePath>C:\MyProjects\ShortestPath\ShortestPath\includes;C:\MyProjects\ShortestPath\ShortestPath\external_includes\imgui;C:\MyProjects\ShortestPath\ShortestPath\external_includes;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\MyProjects\ShortestPath\ShortestPath\external_libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\MyProjects\ShortestPath\includes;C:\MyProjects\ShortestPath\external_includes\imgui;C:\MyProjects\ShortestPath\external_includes;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\MyProjects\ShortestPath\external_libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

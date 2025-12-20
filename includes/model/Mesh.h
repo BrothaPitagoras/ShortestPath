@@ -10,10 +10,10 @@ class Mesh
 public:
 
 	std::vector<Vertex> vertices;
-	std::vector<unsigned int> indices;
+	std::vector<glm::uvec2> indices;
 	unsigned int vao_;
 
-	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices);
+	Mesh(std::vector<Vertex> vertices, std::vector<glm::uvec2> indices);
 
 	void Draw(Shader& shader);
 

@@ -2,11 +2,28 @@
 #include <includes.h>
 #include <windowing/Window.h>
 #include <windowing/gui.h>
+#include <render/Shader.h>
+#include <model/Vertex.h>
+#include <model/Mesh.h>
 
 
 // settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
+
+std::vector<Vertex> vertices = {
+    Vertex(0.5f,  0.5f, 0.0f),  // top right
+    Vertex(0.5f, -0.5f, 0.0f),  // bottom right
+    Vertex(-0.5f, -0.5f, 0.0f), // bottom left
+    Vertex(-0.5f, 0.5f, 0.0f),  // top left 
+};
+
+std::vector<glm::uvec2> indices = {  
+    glm::uvec2(0, 1),   // first line
+    glm::uvec2(1, 2),   // second line
+    glm::uvec2(2, 3),   // third line
+    glm::uvec2(3, 0)    // fourth line
+};
 
 //timing fps
 float deltaTime = 0.0f;
@@ -36,6 +53,15 @@ int main()
         return -1;
     }
 
+    Shader shader = Shader("C:/MyProjects/ShortestPath/shaders/vertex.glsl", "C:/MyProjects/ShortestPath/shaders/frag.glsl");
+
+    Mesh mesh = Mesh(vertices, indices);
+
+    // Dont need depth testing for this project
+    
+    //glEnable(GL_DEPTH_TEST);
+
+
 
     // Render Loop
     // ----------------------------------------------
@@ -53,6 +79,11 @@ int main()
         // -----------------
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+        shader.use();
+        mesh.Draw(shader);
+
 
         //Imgui related window stuff;
         window.imgui_window->NewFrame();
