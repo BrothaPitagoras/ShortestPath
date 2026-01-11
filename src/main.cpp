@@ -5,6 +5,9 @@
 #include <render/Shader.h>
 #include <model/Vertex.h>
 #include <model/Mesh.h>
+#include <model/Matrix.h>
+#include <data/Graph.h>
+#include <data/Path.h>
 
 
 // settings
@@ -18,6 +21,7 @@ std::vector<Vertex> vertices = {
     Vertex(-0.5f, 0.5f, 0.0f),  // top left 
 };
 
+// since we are drawing lines, each line consists of 2 vertex indices
 std::vector<glm::uvec2> indices = {  
     glm::uvec2(0, 1),   // first line
     glm::uvec2(1, 2),   // second line
@@ -55,11 +59,32 @@ int main()
 
     Shader shader = Shader("C:/MyProjects/ShortestPath/shaders/vertex.glsl", "C:/MyProjects/ShortestPath/shaders/frag.glsl");
 
-    Mesh mesh = Mesh(vertices, indices);
+	Matrix matrix = Matrix(10, 10);
 
-    // Dont need depth testing for this project
+	Graph graph = Graph(10, 10);
+
+    std::vector<unsigned int> path_node_ids{0, 1, 10, 11, 12, 13, 23};
+//    for (unsigned int i = 0; i < matrix.GetRows() * matrix.GetCols(); i++)
+//    {
+//		path_node_ids.push_back(i);
+//    }
     
-    //glEnable(GL_DEPTH_TEST);
+
+
+	std::cout << "size: " << path_node_ids.size() << std::endl;
+
+	Path path = Path(path_node_ids);
+	std::vector<Vertex> path_vertices;
+    for (unsigned int node_id : path.node_ids_)
+    {
+        path_vertices.push_back(graph.GetNodes()[node_id].GetPosition());
+	}
+
+	Model path_model = Model(path_vertices, path.edges_);
+	
+
+    
+    glEnable(GL_DEPTH_TEST);
 
 
 
@@ -82,7 +107,8 @@ int main()
 
 
         shader.use();
-        mesh.Draw(shader);
+        matrix.Draw(shader, glm::vec3(1.0f, 0.0f, 0.0f));
+		path_model.Draw(shader, glm::vec3(0.0f, 1.0f, 0.0f));
 
 
         //Imgui related window stuff;

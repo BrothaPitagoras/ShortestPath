@@ -20,3 +20,6 @@
 #include <string_view>
 #include <iostream>
 #include <vector>
+
+const float MAX_MATRIX_BOUNDARY = 0.8f;
+
